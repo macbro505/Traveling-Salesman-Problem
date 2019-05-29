@@ -63,10 +63,14 @@ void Population::make_new_generation(Population parents)
 	for (int i = 0; i < this->population_size; i++) {
 		parent_1 = parents.tournament_selection_parent(NUMBER_OF_PARTICIPANTS, NO_PARENT);
 		parent_2 = parents.tournament_selection_parent(NUMBER_OF_PARTICIPANTS, parent_1);
-		//tutaj dzieje sie magia nowego crossovera #sponsored
-		this->chromosome_vector[i].edge_rcombination_crossover(parents.chromosome_vector[parent_1], parents.chromosome_vector[parent_2]);
-		//this->chromosome_vector[i].order_crossover(parents.chromosome_vector[parent_1], parents.chromosome_vector[parent_2]);
-		//tutaj dzieje sie magia mutacji 
+		//crossover
+		if (USE_EDGE_RECOMBINATION_CROSSOVER == 1) {
+			this->chromosome_vector[i].edge_recombination_crossover(parents.chromosome_vector[parent_1], parents.chromosome_vector[parent_2]);
+		}
+		else {
+			this->chromosome_vector[i].order_crossover(parents.chromosome_vector[parent_1], parents.chromosome_vector[parent_2]);
+		}
+		//mutate
 		probability_of_mutating = rand() % 100;
 		if (probability_of_mutating <= MUTATION_OCCURENCE_PERCENTAGE) {
 			this->chromosome_vector[i].inversion_mutate();

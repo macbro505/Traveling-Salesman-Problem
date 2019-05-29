@@ -122,7 +122,7 @@ void Chromosome::order_crossover(Chromosome parent_1, Chromosome parent_2)
 	}
 }
 
-void Chromosome::edge_rcombination_crossover(Chromosome parent_1, Chromosome parent_2)
+void Chromosome::edge_recombination_crossover(Chromosome parent_1, Chromosome parent_2)
 {
 	int j = 0;
 	neighbour_vector_iniciation(parent_1.city_vector.size());

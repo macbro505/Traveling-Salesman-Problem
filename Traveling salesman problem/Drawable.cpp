@@ -14,7 +14,7 @@ Drawable::Drawable()
 	text.setFont(Font);
 	text.setCharacterSize(14);
 	//texture.loadFromFile("quick.jpg");
-	texture.loadFromFile("tlo.jpg");
+	texture.loadFromFile("tlo2.jpg");
 	sf::Vector2u size = texture.getSize();
 	texture.setSmooth(true);
 	sprite.setTexture(texture);

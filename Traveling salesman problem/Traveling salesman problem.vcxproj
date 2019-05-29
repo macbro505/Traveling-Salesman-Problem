@@ -170,6 +170,7 @@
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="Elite_Chromosome.h" />
     <ClInclude Include="Population.h" />
+    <ClInclude Include="Properties.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

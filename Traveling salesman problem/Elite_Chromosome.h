@@ -1,10 +1,5 @@
 #pragma once
 #include "Chromosome.h"
-#define MAX_PERCENTAGE_OF_NO_IMPROVEMENT_SUCCESIVE_GENERATIONS 80
-#define MAX_NUMBER_OF_GENERATIONS 150
-#define PERCENTAGE_CONDITION -1
-#define MAX_NUMBER_CONDITION 1
-#define BOTH_CONDITIONS 0
 class Elite_Chromosome
 {
 public:

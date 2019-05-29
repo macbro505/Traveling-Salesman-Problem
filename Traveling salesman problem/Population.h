@@ -1,8 +1,6 @@
 #pragma once
 #include "Chromosome.h"
-#define NO_PARENT -1
-#define NUMBER_OF_PARTICIPANTS 10
-#define MUTATION_OCCURENCE_PERCENTAGE 15
+
 class Population
 {
 

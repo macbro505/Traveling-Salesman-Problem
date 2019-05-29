@@ -8,7 +8,6 @@
 #include "Drawable.h"
 #include <vector>
 #include "Chromosome.h"
-#define NUMBER_OF_CITIES 15
 
 int main()
 {

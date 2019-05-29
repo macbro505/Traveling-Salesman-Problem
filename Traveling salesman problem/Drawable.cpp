@@ -5,14 +5,14 @@ Drawable::Drawable()
 {
 	//sf::RenderWindow window(sf::VideoMode(1920, 1080), "Traveling salesman problem");
 	//settings.antialiasingLevel = 16;
-	window.create(sf::VideoMode(1920, 1080), "Traveling salesman problem", sf::Style::Default, settings);
+	window.create(sf::VideoMode(SCREEN_WIDHT, SCREEN_HEIGHT), "Traveling salesman problem", sf::Style::Default, settings);
 	// Load from a font file on disk
 	if (!Font.loadFromFile("Arial_Black.ttf"))
 	{
 		std::cout << "Font error" << std::endl;
 	}
 	text.setFont(Font);
-	text.setCharacterSize(12);
+	text.setCharacterSize(14);
 	//texture.loadFromFile("quick.jpg");
 	texture.loadFromFile("tlo.jpg");
 	sf::Vector2u size = texture.getSize();
@@ -29,7 +29,7 @@ void Drawable::draw_city(City city)
 {
 	text_string ="("+ std::to_string(city.x) + "," + std::to_string(city.y)+")";
 	text.setString(text_string);
-	text.setPosition(sf::Vector2f(city.coords.x-20, city.coords.y-15));
+	text.setPosition(sf::Vector2f(city.coords.x-25, city.coords.y-20));
 	text.setFillColor(city.shape.getFillColor());
 	window.draw(text);
 	window.draw(city.shape);
@@ -46,7 +46,7 @@ void Drawable::draw_link(std::vector <City> cities, int first, int second)
 	window.draw(line, 2, sf::Lines);
 }
 
-void Drawable::draw_scene(Chromosome to_draw, int generation, int number_of_generations)
+void Drawable::draw_scene(Chromosome to_draw, int generation, int number_of_generations, sf::Color colour)
 {
 	window.clear();
 	window.draw(sprite);
@@ -61,10 +61,20 @@ void Drawable::draw_scene(Chromosome to_draw, int generation, int number_of_gene
 	for (auto i = 0; i < to_draw.city_vector.size(); i++) {
 		draw_city(to_draw.city_vector[i]);
 	}
-	text_string = "Current generation: " + std::to_string(generation) +  " out of: "+ std::to_string(number_of_generations) + " generations"+"			Total distance: " + std::to_string(to_draw.distance) + "		Fitness: "+ std::to_string(to_draw.fitness);
-	text.setString(text_string);
-	text.setPosition(sf::Vector2f(1100, 20));
-	text.setFillColor(sf::Color::Green);
+	if (colour == sf::Color::Green) {
+		text_string = "Current generation: " + std::to_string(generation) + " out of: " + std::to_string(number_of_generations) + " generations" + "			Total distance: " + std::to_string(to_draw.distance) + "		Fitness: " + std::to_string(to_draw.fitness);
+		text.setString(text_string);
+		//text.setPosition(sf::Vector2f(1100, 20));
+		text.setPosition(sf::Vector2f(SCREEN_WIDHT - 920, 20));
+		text.setFillColor(colour);
+	}
+	else {
+		text_string = "TERMINATED				Current generation: " + std::to_string(generation) + " out of: " + std::to_string(number_of_generations) + " generations" + "			Total distance: " + std::to_string(to_draw.distance) + "		Fitness: " + std::to_string(to_draw.fitness);
+		text.setString(text_string);
+		//text.setPosition(sf::Vector2f(1100, 20));
+		text.setPosition(sf::Vector2f(SCREEN_WIDHT - 1100, 20));
+		text.setFillColor(colour);
+	}
 	window.draw(text);
 	window.display();
 }
@@ -90,11 +100,11 @@ void Drawable::main_loop(std::vector <City> cities)
 				window.close();
 		}
 		if (!terminated) {
-			draw_scene(population.chromosome_vector[index], population.generation, population.generation);
+			draw_scene(population.chromosome_vector[index], population.generation, population.generation, sf::Color::Green);
 			elite_chrom.add_new_elite_chromosome(population.chromosome_vector[index], population.generation);
 		}
 		else {
-			draw_scene(elite_chrom.show_best_chromosome(), elite_chrom.show_best_generation(), population.generation);
+			draw_scene(elite_chrom.show_best_chromosome(), elite_chrom.show_best_generation(), population.generation, sf::Color::Red);
 		}
 		//
 

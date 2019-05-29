@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <cstdlib>
-
+#include "Properties.h"
 class City
 {
 public:

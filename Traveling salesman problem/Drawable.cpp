@@ -108,7 +108,7 @@ void Drawable::main_loop(std::vector <City> cities)
 		}
 		//
 
-		if (elite_chrom.check_termination_condition(BOTH_CONDITIONS) == false) {
+		if (elite_chrom.check_termination_condition() == false) {
 			children.make_new_generation(population);
 			population.swap_children_with_parents(children);
 		}

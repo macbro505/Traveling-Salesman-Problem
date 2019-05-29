@@ -27,14 +27,14 @@ void Elite_Chromosome::add_new_elite_chromosome(Chromosome new_member, int gener
 	}
 }
 
-bool Elite_Chromosome::check_termination_condition(int conditions)
+bool Elite_Chromosome::check_termination_condition()
 {
-	if (conditions == MAX_NUMBER_CONDITION || conditions == BOTH_CONDITIONS) {
+	if (1 == MAX_NUMBER_CONDITION ) {
 		if (this->generation_vector[this->generation_vector.size() - 1] == MAX_NUMBER_OF_GENERATIONS) {
 			return true;
 		}
 	}
-	if (conditions == PERCENTAGE_CONDITION || conditions == BOTH_CONDITIONS) {
+	if (1 == PERCENTAGE_CONDITION ) {
 		double percentage = ((double(no_improvement_counter) / this->generation_vector.size())* 100);
 		if (percentage > MAX_PERCENTAGE_OF_NO_IMPROVEMENT_SUCCESIVE_GENERATIONS && this->generation_vector.size()>15) {
 			return true;

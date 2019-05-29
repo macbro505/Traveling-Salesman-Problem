@@ -11,7 +11,7 @@ public:
 	Elite_Chromosome();
 	~Elite_Chromosome();
 	void add_new_elite_chromosome(Chromosome new_member, int generation);
-	bool check_termination_condition(int condions);
+	bool check_termination_condition();
 	Chromosome show_best_chromosome();
 	int show_best_generation();
 };

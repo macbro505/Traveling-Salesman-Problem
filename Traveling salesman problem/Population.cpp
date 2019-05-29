@@ -58,6 +58,7 @@ void Population::get_random_population(std::vector <City> all_cities)
 
 void Population::make_new_generation(Population parents)
 {
+	int probability_of_mutating = 0;
 	int parent_1, parent_2;
 	for (int i = 0; i < this->population_size; i++) {
 		parent_1 = parents.tournament_selection_parent(NUMBER_OF_PARTICIPANTS, NO_PARENT);
@@ -65,14 +66,26 @@ void Population::make_new_generation(Population parents)
 		//tutaj dzieje sie magia nowego crossovera #sponsored
 		this->chromosome_vector[i].order_crossover(parents.chromosome_vector[parent_1], parents.chromosome_vector[parent_2]);
 		//tutaj dzieje sie magia mutacji 
-
+		probability_of_mutating = rand() % 100;
+		if (probability_of_mutating <= MUTATION_OCCURENCE_PERCENTAGE) {
+			this->chromosome_vector[i].inversion_mutate();
+			this->chromosome_vector[i].calculate_distance();
+			this->chromosome_vector[i].calculate_fitness();
+		}
 	}
-	return;
 }
 
-void Population::swap_children_with_parents(Population children)
+void Population::swap_children_with_parents(Population &children)
 {
-	
+	this->chromosome_vector.clear();
+	for (int i = 0; i < children.chromosome_vector.size(); i++) {
+		this->chromosome_vector.push_back(children.chromosome_vector[i]);
+	}
+	this->next_gen();
+	children.chromosome_vector.clear();
+	for (int i = 0; i < population_size; i++) {
+		children.chromosome_vector.push_back(add_new_chromosome(this->chromosome_vector[0].city_vector.size()));
+	}
 }
 
 int Population::tournament_selection_parent(int number_of_participants, int first_parent_index)

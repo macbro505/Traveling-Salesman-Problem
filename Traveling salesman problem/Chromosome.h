@@ -1,6 +1,7 @@
 #pragma once
 #include "City.h"
 #include <vector>
+#include <algorithm>
 class Chromosome
 {
 public:
@@ -15,8 +16,8 @@ public:
 	void random_chromosome(std::vector <City> all_cities);
 	void calculate_distance();
 	void calculate_fitness();
-	void mutate();
-	void empty_chromosome();
+	void inversion_mutate();
+	void make_empty_chromosome();
 	void order_crossover(Chromosome parent_1, Chromosome parent_2);
 };
 

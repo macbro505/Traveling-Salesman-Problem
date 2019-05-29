@@ -2,6 +2,7 @@
 #include "Chromosome.h"
 #define NO_PARENT -1
 #define NUMBER_OF_PARTICIPANTS 10
+#define MUTATION_OCCURENCE_PERCENTAGE 15
 class Population
 {
 
@@ -18,7 +19,7 @@ public:
 	int get_best_fitness();
 	void get_random_population(std::vector <City> all_cities);
 	void make_new_generation(Population parents);
-	void swap_children_with_parents(Population children);
+	void swap_children_with_parents(Population &children);
 	int tournament_selection_parent(int number_of_participants, int first_parent_index);
 };
 

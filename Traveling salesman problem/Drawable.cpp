@@ -46,14 +46,38 @@ void Drawable::draw_link(std::vector <City> cities, int first, int second)
 	window.draw(line, 2, sf::Lines);
 }
 
+void Drawable::draw_scene(Chromosome to_draw, int generation, int number_of_generations)
+{
+	window.clear();
+	window.draw(sprite);
+	for (int i = 0; i < to_draw.city_vector.size(); i++) {
+		if (i != (to_draw.city_vector.size() - 1)) {
+			draw_link(to_draw.city_vector, i, i + 1);
+		}
+		else {
+			draw_link(to_draw.city_vector, i, 0);
+		}
+	}
+	for (auto i = 0; i < to_draw.city_vector.size(); i++) {
+		draw_city(to_draw.city_vector[i]);
+	}
+	text_string = "Current generation: " + std::to_string(generation) +  " out of: "+ std::to_string(number_of_generations) + " generations"+"			Total distance: " + std::to_string(to_draw.distance) + "		Fitness: "+ std::to_string(to_draw.fitness);
+	text.setString(text_string);
+	text.setPosition(sf::Vector2f(1100, 20));
+	text.setFillColor(sf::Color::Green);
+	window.draw(text);
+	window.display();
+}
+
 
 
 void Drawable::main_loop(std::vector <City> cities)
 {
-	int poop = 0;
-	Population children(100, cities.size());
-	Population population(100, cities.size());
+	bool terminated = false;
+	Population children(NUMBER_OF_CHROMOSOMES, cities.size());
+	Population population(NUMBER_OF_CHROMOSOMES, cities.size());
 	population.get_random_population(cities);
+	Elite_Chromosome elite_chrom;
 	int index = population.get_best_fitness();
 
 	while (window.isOpen())
@@ -65,32 +89,21 @@ void Drawable::main_loop(std::vector <City> cities)
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
-		window.clear();
-		window.draw(sprite);
-		draw_link(population.chromosome_vector[index].city_vector, 0, 1);
-		draw_link(population.chromosome_vector[index].city_vector, 1, 2);
-		draw_link(population.chromosome_vector[index].city_vector, 2, 3);
-		draw_link(population.chromosome_vector[index].city_vector, 3, 4);
-		draw_link(population.chromosome_vector[index].city_vector, 4, 5);
-		draw_link(population.chromosome_vector[index].city_vector, 5, 6);
-		draw_link(population.chromosome_vector[index].city_vector, 6, 7);
-		draw_link(population.chromosome_vector[index].city_vector, 7, 8);
-		draw_link(population.chromosome_vector[index].city_vector, 8, 9);
-		draw_link(population.chromosome_vector[index].city_vector, 9, 0);
-		for (auto i = 0; i < population.chromosome_vector[index].city_vector.size(); i++) {
-			draw_city(population.chromosome_vector[index].city_vector[i]);
+		if (!terminated) {
+			draw_scene(population.chromosome_vector[index], population.generation, population.generation);
+			elite_chrom.add_new_elite_chromosome(population.chromosome_vector[index], population.generation);
 		}
-		text_string = "Generation: "+ std::to_string(population.generation) +"			Total distance: " + std::to_string(population.chromosome_vector[index].distance);
-		text.setString(text_string);
-		text.setPosition(sf::Vector2f(1500,50));
-		text.setFillColor(sf::Color::Green);
-		window.draw(text);
-		window.display();
+		else {
+			draw_scene(elite_chrom.show_best_chromosome(), elite_chrom.show_best_generation(), population.generation);
+		}
 		//
-		if (poop == 0) {
+
+		if (elite_chrom.check_termination_condition(BOTH_CONDITIONS) == false) {
 			children.make_new_generation(population);
-			//przenies children do populacji i wyzeruj children 
-			poop = 1;
+			population.swap_children_with_parents(children);
+		}
+		else {
+			terminated = true;
 		}
 	}
 }

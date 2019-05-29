@@ -160,6 +160,7 @@
     <ClCompile Include="Chromosome.cpp" />
     <ClCompile Include="City.cpp" />
     <ClCompile Include="Drawable.cpp" />
+    <ClCompile Include="Elite_Chromosome.cpp" />
     <ClCompile Include="Population.cpp" />
     <ClCompile Include="Traveling salesman problem.cpp" />
   </ItemGroup>
@@ -167,6 +168,7 @@
     <ClInclude Include="Chromosome.h" />
     <ClInclude Include="City.h" />
     <ClInclude Include="Drawable.h" />
+    <ClInclude Include="Elite_Chromosome.h" />
     <ClInclude Include="Population.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

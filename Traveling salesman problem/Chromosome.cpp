@@ -14,7 +14,7 @@ Chromosome::Chromosome(int ammount_of_cities)
 	this->distance = 0;
 }
 
-void Chromosome::empty_chromosome() {
+void Chromosome::make_empty_chromosome() {
 	City temp;
 	for (int i = 0; i < this->available_cities.size(); i++) {
 		this->city_vector.push_back(temp.empty_city());
@@ -60,6 +60,25 @@ void Chromosome::calculate_fitness()
 	fitness = (1 / distance)*1000000;
 }
 
+void Chromosome::inversion_mutate()
+{
+	int x, y;
+	x = rand() % (this->city_vector.size() - 1);
+	do {
+		y = rand() % (this->city_vector.size() - 1);
+	} while (x == y);
+	if (x > y) {
+		std::swap(x, y);
+	}
+	while (x < y) {
+		if (x != y) {
+			std::iter_swap(this->city_vector.begin() + x, this->city_vector.begin() + y);
+			x++;
+			y--;
+		}
+	}
+}
+
 void Chromosome::order_crossover(Chromosome parent_1, Chromosome parent_2)
 {
 	int x, y;
@@ -71,7 +90,7 @@ void Chromosome::order_crossover(Chromosome parent_1, Chromosome parent_2)
 		std::swap(x, y);
 	}
 	std::vector<int>::iterator it;
-	this->empty_chromosome();
+	this->make_empty_chromosome();
 	for (int i = x; i <= y; i++) {
 		this->city_vector[i] = parent_1.city_vector[i];
 		it = std::find(available_cities.begin(), available_cities.end(), this->city_vector[i].number);

@@ -105,17 +105,15 @@ void Drawable::main_loop(std::vector <City> cities)
 			draw_scene(population.chromosome_vector[index], population.generation, population.generation, sf::Color::Green);
 			elite_chrom.add_new_elite_chromosome(population.chromosome_vector[index], population.generation);
 		}
-		else {
-			draw_scene(elite_chrom.show_best_chromosome(), elite_chrom.show_best_generation(), population.generation, sf::Color::Red);
-		}
 		//
 
 		if (elite_chrom.check_termination_condition() == false) {
 			children.make_new_generation(population);
 			population.swap_children_with_parents(children);
 		}
-		else {
+		else if (terminated != true) {
 			terminated = true;
+			draw_scene(elite_chrom.show_best_chromosome(), elite_chrom.show_best_generation(), population.generation, sf::Color::Red);
 		}
 	}
 }

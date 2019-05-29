@@ -16,7 +16,9 @@ Drawable::Drawable()
 	//texture.loadFromFile("quick.jpg");
 	texture.loadFromFile("tlo.jpg");
 	sf::Vector2u size = texture.getSize();
+	texture.setSmooth(true);
 	sprite.setTexture(texture);
+	sprite.setScale(float(SCREEN_WIDHT) / float(size.x), float(SCREEN_HEIGHT) / float(size.y));
 	//sprite.setOrigin(size.x / 2, size.y / 2);
 }
 

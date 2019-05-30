@@ -1,7 +1,6 @@
 #include "Population.h"
 
 
-
 Population::Population()
 {
 }
@@ -59,16 +58,28 @@ void Population::get_random_population(std::vector <City> all_cities)
 void Population::make_new_generation(Population parents)
 {
 	int probability_of_mutating = 0;
+	int probability_of_crossover = 0;
 	int parent_1, parent_2;
 	for (int i = 0; i < this->population_size; i++) {
 		parent_1 = parents.tournament_selection_parent(NUMBER_OF_PARTICIPANTS, NO_PARENT);
 		parent_2 = parents.tournament_selection_parent(NUMBER_OF_PARTICIPANTS, parent_1);
 		//crossover
-		if (USE_EDGE_RECOMBINATION_CROSSOVER == 1) {
-			this->chromosome_vector[i].edge_recombination_crossover(parents.chromosome_vector[parent_1], parents.chromosome_vector[parent_2]);
+		probability_of_crossover = rand() % 100;
+		if (probability_of_crossover <= CROSSOVER_PROBABILITY) {
+			if (USE_EDGE_RECOMBINATION_CROSSOVER == 1) {
+				this->chromosome_vector[i].edge_recombination_crossover(parents.chromosome_vector[parent_1], parents.chromosome_vector[parent_2]);
+			}
+			else {
+				this->chromosome_vector[i].order_crossover(parents.chromosome_vector[parent_1], parents.chromosome_vector[parent_2]);
+			}
 		}
 		else {
-			this->chromosome_vector[i].order_crossover(parents.chromosome_vector[parent_1], parents.chromosome_vector[parent_2]);
+			if (parents.chromosome_vector[parent_1].fitness > parents.chromosome_vector[parent_2].fitness) {
+				this->chromosome_vector[i] = parents.chromosome_vector[parent_1];
+			}
+			else {
+				this->chromosome_vector[i] = parents.chromosome_vector[parent_2];
+			}
 		}
 		//mutate
 		probability_of_mutating = rand() % 100;

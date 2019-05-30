@@ -64,7 +64,7 @@ void Drawable::draw_scene(Chromosome to_draw, int generation, int number_of_gene
 		draw_city(to_draw.city_vector[i]);
 	}
 	if (colour == sf::Color::Green) {
-		text_string = "Current generation: " + std::to_string(generation) + " out of: " + std::to_string(number_of_generations) + " generations" + "			Total distance: " + std::to_string(to_draw.distance) + "		Fitness: " + std::to_string(to_draw.fitness);
+		text_string = "Current generation: " + std::to_string(generation) + "			Total distance: " + std::to_string(to_draw.distance) + "		Fitness: " + std::to_string(to_draw.fitness);
 		text.setString(text_string);
 		//text.setPosition(sf::Vector2f(1100, 20));
 		text.setPosition(sf::Vector2f(SCREEN_WIDHT - 920, 20));

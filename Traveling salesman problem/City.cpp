@@ -32,8 +32,8 @@ City::City()
 
 void City::draw_coords()
 {
-	x = (rand() % 1820)+30;
-	y = (rand() % 980)+30;
+	x = (rand() % (SCREEN_WIDHT - 100)) + 30;
+	y = (rand() % (SCREEN_HEIGHT - 100)) + 30;
 }
 
 double City::calculate_distance(City destination)

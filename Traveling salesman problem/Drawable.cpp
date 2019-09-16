@@ -81,7 +81,20 @@ void Drawable::draw_scene(Chromosome to_draw, int generation, int number_of_gene
 	window.display();
 }
 
-
+void Drawable::save_result(Elite_Chromosome elite_chrom) {
+	std::ofstream file;
+	file.open("result.txt");
+	if (file.is_open()) {
+		int j = 1;
+		for (Chromosome i : elite_chrom.elite_chromosome_vector) {
+			file << j << " " << i.fitness << std::endl;
+			j++;
+		}
+		int improvement = ((elite_chrom.best_fitness- elite_chrom.elite_chromosome_vector[0].fitness) / elite_chrom.elite_chromosome_vector[0].fitness) * 100;
+		file << improvement<< " %";
+		file.close();
+	}
+}
 
 void Drawable::main_loop(std::vector <City> cities)
 {
@@ -114,6 +127,7 @@ void Drawable::main_loop(std::vector <City> cities)
 		else if (terminated != true) {
 			terminated = true;
 			draw_scene(elite_chrom.show_best_chromosome(), elite_chrom.show_best_generation(), population.generation, sf::Color::Red);
+			save_result(elite_chrom);
 		}
 	}
 }

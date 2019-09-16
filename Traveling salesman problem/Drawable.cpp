@@ -128,6 +128,8 @@ void Drawable::main_loop(std::vector <City> cities)
 			terminated = true;
 			draw_scene(elite_chrom.show_best_chromosome(), elite_chrom.show_best_generation(), population.generation, sf::Color::Red);
 			save_result(elite_chrom);
+			Sleep(5000);
+			return;
 		}
 	}
 }

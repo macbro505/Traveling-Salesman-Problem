@@ -10,7 +10,7 @@ public:
 	int number;
 	sf::Vector2f coords;
 	sf::CircleShape shape;
-//public:
+
 	City empty_city();
 	City(sf::Color color, int number);
 	City();

@@ -8,6 +8,7 @@ public:
 	int no_improvement_counter;
 	double best_fitness;
 	int best_index;
+
 	Elite_Chromosome();
 	~Elite_Chromosome();
 	void add_new_elite_chromosome(Chromosome new_member, int generation);

@@ -8,6 +8,7 @@ public:
 	std::vector<Chromosome> chromosome_vector;
 	int generation;
 	int population_size;
+
 	Population();
 	Population(int population_size, int chromosome_size);
 	~Population();

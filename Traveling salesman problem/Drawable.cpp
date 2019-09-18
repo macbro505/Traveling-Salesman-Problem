@@ -104,7 +104,7 @@ void Drawable::main_loop(std::vector <City> cities)
 	population.get_random_population(cities);
 	Elite_Chromosome elite_chrom;
 	int index = population.get_best_fitness();
-
+	bool first_generation = true;
 	while (window.isOpen())
 	{
 
@@ -117,6 +117,13 @@ void Drawable::main_loop(std::vector <City> cities)
 		if (!terminated) {
 			draw_scene(population.chromosome_vector[index], population.generation, population.generation, sf::Color::Green);
 			elite_chrom.add_new_elite_chromosome(population.chromosome_vector[index], population.generation);
+			if (first_generation) {
+				Sleep(WAITING_TIME * 5);
+				first_generation = false;
+			}
+			else {
+				Sleep(WAITING_TIME);
+			}
 		}
 		//
 
@@ -128,7 +135,7 @@ void Drawable::main_loop(std::vector <City> cities)
 			terminated = true;
 			draw_scene(elite_chrom.show_best_chromosome(), elite_chrom.show_best_generation(), population.generation, sf::Color::Red);
 			save_result(elite_chrom);
-			Sleep(5000);
+			Sleep(WAITING_TIME * 5);
 			return;
 		}
 	}
